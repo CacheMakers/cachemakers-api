@@ -9,16 +9,24 @@ class GroupTest < ActiveSupport::TestCase
   end
 
   test "title should validate" do
+    assert @valid_group.valid?
+    assert !@invalid_group.valid?
   end
 
   test "description should validate" do
+    assert @valid_group.valid?
+    assert !@invalid_group.valid?
   end
 
   test "location should validate" do
+    assert @valid_group.valid?
+    assert !@invalid_group.valid?
   end
 
   test "time should validate" do
-  end 
+    assert @valid_group.valid?
+    assert !@invalid_group.valid?
+  end
 
   test "should validate" do
     assert @valid_group.valid?
