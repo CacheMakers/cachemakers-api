@@ -2,10 +2,22 @@ require 'test_helper'
 
 class GroupTest < ActiveSupport::TestCase
   def setup
-    @valid_group = Group.new(title: "Example Group", description: "The coolest group.",
-      location: "makeshop", time: "afternoon")
-    @invalid_group = Group.new(title: "", description: "",
-        location: "the moon", time: "not afternoon")
+    @valid_group = Group.new(
+      title: "Example Group",
+      description: "The coolest group.",
+      location: "makeshop",
+      time: "afternoon",
+      leader_email: "test@test.com",
+      leader_name: "Test Leader"
+    )
+    @invalid_group = Group.new(
+      title: "",
+      description: "",
+      location: "the moon",
+      time: "not afternoon",
+      leader_email: "test@testcom",
+      leader_name: ""
+    )
   end
 
   test "title should validate" do
@@ -34,6 +46,20 @@ class GroupTest < ActiveSupport::TestCase
     @invalid_group.valid?
     assert !@valid_group.errors[:time].any?
     assert @invalid_group.errors[:time].any?
+  end
+
+  test "leader email should validate" do
+    @valid_group.valid?
+    @invalid_group.valid?
+    assert !@valid_group.errors[:leader_email].any?
+    assert @invalid_group.errors[:leader_email].any?
+  end
+
+  test "leader name should validate" do
+    @valid_group.valid?
+    @invalid_group.valid?
+    assert !@valid_group.errors[:leader_name].any?
+    assert @invalid_group.errors[:leader_name].any?
   end
 
   test "should validate" do
