@@ -1,9 +1,8 @@
 class GroupsController < ApplicationController
 
   def index
-    groups = Group.paginate(:page => params[:page], :per_page => 20)
-    meta = {page:params[:page], per_page:20}
-    render json: {data:groups, meta:meta}
+    @groups = Group.paginate(:page => params[:page], :per_page => 20)
+    render :json => @groups, meta: pagination_dict(@groups)
   end
 
   def create
@@ -14,7 +13,7 @@ class GroupsController < ApplicationController
 
     message = "Successfully Updated"
     message = group.errors.messages unless group.errors.messages.empty?
-    render :json => {messages:message, item: group}
+    render :json => group, meta: message
   end
 
   def show
@@ -32,7 +31,7 @@ class GroupsController < ApplicationController
 
     message = "Successfully Updated"
     message = group.errors.messages unless group.errors.messages.empty?
-    render :json => {messages:message, item: group}
+    render :json => group, meta:message
   end
 
   def destroy
@@ -41,7 +40,7 @@ class GroupsController < ApplicationController
 
     message = "Successfully Removed"
     message = group.errors.messages unless group.errors.messages.empty?
-    render :json => {messages:message, item: group}
+    render :json => group, meta: message
   end
 
  def group_params
@@ -69,6 +68,17 @@ class GroupsController < ApplicationController
       tags << Tag.create(name:t)
     end
     tags
+  end
+
+
+  def pagination_dict(object)
+    {
+      current_page: object.current_page,
+      next_page: object.next_page,
+      prev_page: object.previous_page,
+      total_pages: object.total_pages,
+      total_count: object.total_entries
+    }
   end
 
 end

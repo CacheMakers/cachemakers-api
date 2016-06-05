@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160528151636) do
+ActiveRecord::Schema.define(version: 20160605202309) do
 
   create_table "groups", force: :cascade do |t|
     t.string   "title"
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 20160528151636) do
     t.boolean  "age_intermediate", default: false
     t.boolean  "age_junior",       default: false
     t.boolean  "age_senior",       default: false
+    t.string   "weekday"
   end
 
   create_table "tags", force: :cascade do |t|

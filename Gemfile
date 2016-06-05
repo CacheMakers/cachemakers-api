@@ -10,6 +10,8 @@ gem 'active_model_serializers'
 
 gem 'will_paginate'
 
+gem 'responders', '~> 2.0'
+
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 # Use SCSS for stylesheets

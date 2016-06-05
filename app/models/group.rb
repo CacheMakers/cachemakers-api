@@ -6,6 +6,7 @@ class Group < ActiveRecord::Base
   validates :title, length: { maximum: 100 }, presence: true
   validates :location, inclusion: {in: %w(makeshop computerlab)}, presence: true
   validates :time, inclusion: {in: %w(morning afternoon evening)}, presence: true
-  validates :leader_email, uniqueness: { case_sensitive: false }, format: { with: EMAIL_REGEX }
+  validates :weekday, inlcusion: {in: %w(monday tuesday wednesday thursday friday saturday sunday)}
+  validates :leader_email, format: { with: EMAIL_REGEX }
   validates :leader_name, length: {maximum: 255}, presence: true
 end
