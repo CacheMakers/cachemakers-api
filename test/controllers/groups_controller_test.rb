@@ -2,7 +2,6 @@ require 'test_helper'
 
 class GroupsControllerTest < ActionController::TestCase
 
-
   test "create should create valid model" do
   end
 

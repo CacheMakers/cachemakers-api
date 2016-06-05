@@ -1,8 +1,9 @@
 class GroupsController < ApplicationController
+  respond_to :json
 
   def index
     @groups = Group.paginate(:page => params[:page], :per_page => 20)
-    render :json => @groups, meta: pagination_dict(@groups)
+    respond_with @groups, meta: pagination_dict(@groups)
   end
 
   def create
@@ -13,11 +14,11 @@ class GroupsController < ApplicationController
 
     message = "Successfully Updated"
     message = group.errors.messages unless group.errors.messages.empty?
-    render :json => group, meta: message
+    respond_with group, meta: message
   end
 
   def show
-    render :json => Group.find(params[:id])
+    respond_with Group.find(params[:id])
   end
 
   def update
@@ -31,16 +32,16 @@ class GroupsController < ApplicationController
 
     message = "Successfully Updated"
     message = group.errors.messages unless group.errors.messages.empty?
-    render :json => group, meta:message
+    respond_with group, meta:message
   end
 
   def destroy
     group = Group.find(params[:id])
-    group.destroy
+    group.destroy if group
 
     message = "Successfully Removed"
     message = group.errors.messages unless group.errors.messages.empty?
-    render :json => group, meta: message
+    respond_with group, meta: message
   end
 
  def group_params
