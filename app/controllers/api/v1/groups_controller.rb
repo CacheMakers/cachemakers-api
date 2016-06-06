@@ -1,8 +1,7 @@
 class Api::V1::GroupsController < ApplicationController
   respond_to :json
-
   def show
-    respond_with Group.find(params[:id])
+    render json: Group.find(params[:id])
   end
 
   def create
@@ -14,6 +13,21 @@ class Api::V1::GroupsController < ApplicationController
       render json: { errors: group.errors }, status: 422
     end
 
+  end
+
+  def update
+    group = Group.find(params[:id])
+    if group.update(group_params)
+      render json: group, status:200, location: [:api, group]
+    else
+      render json: {errors: group.errors}, status: 422
+    end
+  end
+
+  def destroy
+    group = Group.find(params[:id])
+    group.destroy
+    head 204
   end
 
   private

@@ -14,11 +14,4 @@ class GroupSerializer < ActiveModel::Serializer
     :age_senior
   )
 
-  has_many :tags
-
-  class TagSerializer < ActiveModel::Serializer
-      attributes :name
-      belongs_to :group_id
-  end
-
 end
