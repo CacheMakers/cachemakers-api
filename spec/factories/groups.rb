@@ -1,12 +1,12 @@
 FactoryGirl.define do
   factory :group do
-    title "MyString"
-    description "MyString"
-    location "MyString"
-    time "MyString"
-    weekday "MyString"
-    leader_name "MyString"
-    leader_email "MyString"
+    title "Example Group"
+    description "The coolest group."
+    location "makeshop"
+    time "afternoon"
+    weekday "monday"
+    leader_email "test@test.com"
+    leader_name "Test Leader"
     age_cloverbud false
     age_intermediate false
     age_junior false
