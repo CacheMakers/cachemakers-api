@@ -7,6 +7,7 @@ RSpec.describe User, type: :model do
     expect(@User).to respond_to(:email)
     expect(@User).to respond_to(:password)
     expect(@User).to respond_to(:password_confirmation)
+    expect(@User).to respond_to(:auth_token)
   end
 
 end
