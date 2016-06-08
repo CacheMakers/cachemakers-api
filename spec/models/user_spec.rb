@@ -21,6 +21,7 @@ RSpec.describe User, type: :model do
       existing_user = FactoryGirl.create(:user, auth_token: "auniquetoken123")
       @user.generate_authentication_token!
       expect(@user.auth_token).not_to eql("auniquetoken123")
+      expect(@user.auth_token).not_to eql(nil)
     end
   end
 
