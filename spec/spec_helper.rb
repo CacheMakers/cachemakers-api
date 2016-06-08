@@ -17,7 +17,9 @@
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 
-Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
+# Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
+require 'support/request_helpers'
+
 RSpec.configure do |config|
 
   config.include Request::JsonHelpers, :type => :controller

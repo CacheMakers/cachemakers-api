@@ -44,7 +44,7 @@ gem 'devise'
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
-  gem 'rspec-rails', '~> 3.4'
+  gem 'rspec-rails', '~> 3.1'
   gem 'pry'
   gem 'byebug'
   gem "factory_girl_rails"
