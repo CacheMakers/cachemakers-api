@@ -57,6 +57,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
       before(:each) do
         @user = FactoryGirl.create :user
+        api_authorization_header @user.auth_token
         patch :update, {id:@user.id, user:{email:"updated@email.com"}}
         @user_response = json_response
       end
@@ -75,6 +76,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
       before(:each) do
         @user = FactoryGirl.create :user
+        api_authorization_header @user.auth_token
         patch :update, {id:@user.id, user:{email:""}}
         @user_response = json_response
       end
@@ -93,8 +95,9 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
   describe "DELETE #destroy" do
     it "should delete an item" do
-      @User = FactoryGirl.create :user
-      delete :destroy, {id: @User.id}
+      @user = FactoryGirl.create :user
+      api_authorization_header @user.auth_token
+      delete :destroy, {id: @user.id}
 
       expect(response.status).to equal(204)
     end
