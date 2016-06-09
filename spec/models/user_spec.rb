@@ -25,5 +25,21 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe 'should destroy dependencies' do
+    before(:each) do
+      @user = FactoryGirl.create :user
+      3.times { FactoryGirl.create :group, user: @user }
+    end
+
+    it 'should destroy groups' do
+      groups = @user.groups
+      @user.destroy
+      groups.each do |g|
+        expect(Group.find(g.id)).to raise_error ActiveRecord::RecordNotFound
+      end
+
+    end
+  end
+
 
 end

@@ -3,20 +3,17 @@ require 'rails_helper'
 RSpec.describe Group, type: :model do
   describe 'should validate' do
     before :each do
-    @valid_group = Group.new(
-        title: "Example Group",
-        description: "The coolest group.",
-        location: "makeshop",
-        time: "afternoon",
-        weekday: "monday",
-      )
-      @invalid_group = Group.new(
+
+      @valid_group = FactoryGirl.create :group
+
+      @invalid_group = FactoryGirl.build :group,
         title: "",
         description: "",
+        user_id:nil,
         location: "the moon",
         time: "not afternoon",
-        weekday: "not one of them",
-      )
+        weekday: "not one of them"
+
     end
 
     it "title should validate" do
@@ -64,6 +61,8 @@ RSpec.describe Group, type: :model do
     before(:each) do
       @group = FactoryGirl.create :group
     end
+
+    # it {should belong_to :user}
 
     it {expect(@group).to respond_to(:title)}
     it {expect(@group).to respond_to(:description)}

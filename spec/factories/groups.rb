@@ -10,5 +10,6 @@ FactoryGirl.define do
     age_intermediate false
     age_junior false
     age_senior false
+    user
   end
 end

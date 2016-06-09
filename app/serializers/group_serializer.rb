@@ -6,12 +6,11 @@ class GroupSerializer < ActiveModel::Serializer
     :description,
     :location,
     :time,
-    :leader_name,
-    :leader_email,
     :age_cloverbud,
     :age_intermediate,
     :age_junior,
-    :age_senior
+    :age_senior,
+    :approved
   )
 
 end

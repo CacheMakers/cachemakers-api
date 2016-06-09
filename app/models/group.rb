@@ -3,4 +3,6 @@ class Group < ActiveRecord::Base
   validates :location, inclusion: {in: %w(makeshop computerlab)}, presence: true
   validates :time, inclusion: {in: %w(morning afternoon evening)}, presence: true
   validates :weekday, inclusion: {in: %w(monday tuesday wednesday thursday friday saturday sunday)}
+
+  belongs_to :user
 end

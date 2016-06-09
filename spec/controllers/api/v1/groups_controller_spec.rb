@@ -23,7 +23,7 @@ describe Api::V1::GroupsController, type: :controller do
       end
 
       it 'should respond with 201' do
-        expect(response.status).to equal(201)
+        expect(response.status).to eql(201)
       end
 
       it 'renders created user json' do
@@ -40,7 +40,7 @@ describe Api::V1::GroupsController, type: :controller do
       end
 
       it 'should respond with 422' do
-        expect(response.status).to equal(422)
+        expect(response.status).to eql(422)
       end
 
       it 'should render errors json' do

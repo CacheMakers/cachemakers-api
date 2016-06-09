@@ -49,6 +49,7 @@ group :development, :test do
   gem 'byebug'
   gem "factory_girl_rails"
   gem 'ffaker'
+  gem 'shoulda-matchers', '~> 3.0'
 end
 
 group :development do
