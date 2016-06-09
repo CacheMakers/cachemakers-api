@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160607030833) do
+ActiveRecord::Schema.define(version: 20160609125524) do
 
   create_table "groups", force: :cascade do |t|
     t.string   "title"
@@ -19,15 +19,17 @@ ActiveRecord::Schema.define(version: 20160607030833) do
     t.string   "location"
     t.string   "time"
     t.string   "weekday"
-    t.string   "leader_name"
-    t.string   "leader_email"
     t.boolean  "age_cloverbud"
     t.boolean  "age_intermediate"
     t.boolean  "age_junior"
     t.boolean  "age_senior"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.integer  "user_id"
+    t.boolean  "approved",         default: false
   end
+
+  add_index "groups", ["user_id"], name: "index_groups_on_user_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
