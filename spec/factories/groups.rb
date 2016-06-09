@@ -5,8 +5,7 @@ FactoryGirl.define do
     location "makeshop"
     time "afternoon"
     weekday "monday"
-    leader_email "test@test.com"
-    leader_name "Test Leader"
+    approved false
     age_cloverbud false
     age_intermediate false
     age_junior false
