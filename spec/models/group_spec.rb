@@ -54,20 +54,6 @@ RSpec.describe Group, type: :model do
       assert @invalid_group.errors[:time].any?
     end
 
-    # it "leader email should validate" do
-    #   @valid_group.valid?
-    #   @invalid_group.valid?
-    #   assert !@valid_group.errors[:leader_email].any?
-    #   assert @invalid_group.errors[:leader_email].any?
-    # end
-
-    # it "leader name should validate" do
-    #   @valid_group.valid?
-    #   @invalid_group.valid?
-    #   assert !@valid_group.errors[:leader_name].any?
-    #   assert @invalid_group.errors[:leader_name].any?
-    # end
-
     it "should validate" do
       assert @valid_group.valid?
       assert !@invalid_group.valid?
