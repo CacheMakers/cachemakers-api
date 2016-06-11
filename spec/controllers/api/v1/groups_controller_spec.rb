@@ -17,8 +17,11 @@ describe Api::V1::GroupsController, type: :controller do
   describe 'POST #create' do
     context "when is successfully created" do
       before(:each) do
+        user = FactoryGirl.create :user
         @group_attr = FactoryGirl.attributes_for :group
-        post :create, {group:@group_attr}
+        api_authorization_header user.auth_token
+
+        post :create, {user_id: user.id, group: @group_attr}
         @group_response = json_response
       end
 
@@ -32,10 +35,11 @@ describe Api::V1::GroupsController, type: :controller do
     end
 
     context "when is not successfully created" do
-
       before(:each) do
+        user = FactoryGirl.create :user
         @bad_attr = {bad_attr:"not valid"}
-        post :create, {group:@bad_attr}
+        api_authorization_header user.auth_token
+        post :create, { user_id: user.id, group: @bad_attr }
         @group_response = json_response
       end
 
@@ -47,6 +51,24 @@ describe Api::V1::GroupsController, type: :controller do
         expect(@group_response).to have_key(:errors)
         expect(@group_response[:errors][:title]).to include("can't be blank")
       end
+    end
+
+    context "when user is not logged in" do
+      before(:each) do
+        user = FactoryGirl.create :user
+        @group_attr = FactoryGirl.attributes_for :group
+        post :create, {user_id: user.id, group: @group_attr}
+        @group_response = json_response
+      end
+
+      it 'should respond with 401' do
+        expect(response.status).to eql(401)
+      end
+
+      it 'should render errors json' do
+        expect(@group_response).to have_key(:errors)
+        expect(@group_response[:errors]).to include("Not Authenticated")
+      end
 
     end
   end
@@ -55,8 +77,11 @@ describe Api::V1::GroupsController, type: :controller do
     context 'when it is successfully updated' do
 
       before(:each) do
-        @group = FactoryGirl.create :group
-        patch :update, {id:@group.id, group:{title:"Updated Title"}}
+        user = FactoryGirl.create :user
+        api_authorization_header user.auth_token
+        @group = FactoryGirl.create :group, user: user
+        api_authorization_header user.auth_token
+        patch :update, {user_id: user.id, id:@group.id, group:{title:"Updated Title"}}
         @group_response = json_response
       end
 
@@ -73,8 +98,10 @@ describe Api::V1::GroupsController, type: :controller do
     context 'when it fails to update' do
 
       before(:each) do
-        @group = FactoryGirl.create :group
-        patch :update, {id:@group.id, group:{title:""}}
+        user = FactoryGirl.create :user
+        api_authorization_header user.auth_token
+        @group = FactoryGirl.create :group, user: user
+        patch :update, {user_id: user.id, id: @group.id, group:{title:""}}
         @group_response = json_response
       end
 
@@ -93,8 +120,10 @@ describe Api::V1::GroupsController, type: :controller do
   describe "DELETE #destroy" do
     context "successfully deletes" do
       before(:each) do
-        @group = FactoryGirl.create :group
-        delete :destroy, {id:@group.id}
+        user = FactoryGirl.create :user
+        api_authorization_header user.auth_token
+        @group = FactoryGirl.create :group, user: user
+        delete :destroy, {user_id: user.id, id:@group.id}
       end
 
       it 'should respond with 204' do

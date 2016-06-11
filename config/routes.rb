@@ -10,8 +10,10 @@ MakersApi::Application.routes.draw do
 
 
 
-      resources :groups, :only => [:show, :create, :update, :destroy]
-      resources :users, :only => [:show, :create, :update, :destroy]
+      resources :groups, :only => [:show]
+      resources :users, :only => [:show, :create, :update, :destroy] do
+        resources :groups, :only => [:create, :update, :destroy]
+      end
       resources :sessions, :only => [:create, :destroy]
 
       devise_for :users

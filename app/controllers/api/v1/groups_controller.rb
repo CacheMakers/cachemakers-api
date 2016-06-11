@@ -1,12 +1,13 @@
 class Api::V1::GroupsController < ApplicationController
+  before_action :authenticate_with_token!, only: [:create , :update, :delete]
   respond_to :json
+
   def show
     render json: Group.find(params[:id])
   end
 
   def create
-    group = Group.new(group_params)
-
+    group = current_user.groups.build(group_params) #TODO will probably break
     if group.save
       render json: group, status: 201, location: [:api, group]
     else
@@ -16,7 +17,7 @@ class Api::V1::GroupsController < ApplicationController
   end
 
   def update
-    group = Group.find(params[:id])
+    group = current_user.groups.find(params[:id])
     if group.update(group_params)
       render json: group, status:200, location: [:api, group]
     else
@@ -25,7 +26,7 @@ class Api::V1::GroupsController < ApplicationController
   end
 
   def destroy
-    group = Group.find(params[:id])
+    group = current_user.groups.find(params[:id])
     group.destroy
     head 204
   end
