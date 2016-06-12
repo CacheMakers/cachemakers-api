@@ -1,14 +1,9 @@
 require 'api_constraints'
 
 MakersApi::Application.routes.draw do
-  # devise_for :users
-  # Api definition
-  namespace :api, defaults: { format: :json },
-                              constraints: { subdomain: 'api' }, path: '/'  do
-    scope module: :v1,
-              constraints: ApiConstraints.new(version: 1, default: true) do
-
-
+  scope module: 'api/v1',
+    constraints: ApiConstraints.new(version: 1, default: true),
+    defaults: { format: :json } do
 
       resources :groups, :only => [:show]
       resources :users, :only => [:show, :create, :update, :destroy] do
@@ -19,4 +14,3 @@ MakersApi::Application.routes.draw do
       devise_for :users
     end
   end
-end
