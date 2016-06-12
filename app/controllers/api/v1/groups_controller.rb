@@ -9,7 +9,7 @@ class Api::V1::GroupsController < ApplicationController
   def create
     group = current_user.groups.build(group_params) #TODO will probably break
     if group.save
-      render json: group, status: 201, location: [:api, group]
+      render json: group, status: 201
     else
       render json: { errors: group.errors }, status: 422
     end
@@ -19,7 +19,7 @@ class Api::V1::GroupsController < ApplicationController
   def update
     group = current_user.groups.find(params[:id])
     if group.update(group_params)
-      render json: group, status:200, location: [:api, group]
+      render json: group, status:200
     else
       render json: {errors: group.errors}, status: 422
     end

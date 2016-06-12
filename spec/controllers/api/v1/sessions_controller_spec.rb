@@ -12,7 +12,7 @@ RSpec.describe Api::V1::SessionsController, type: :controller do
       it 'should return user with token' do
         credentials = {email:@user.email, password:"12345678"}
         post :create, {session:credentials}
-        session_resp = json_response
+        session_resp = json_response[:user]
 
         @user.reload
         expect(response.status).to eql(200)

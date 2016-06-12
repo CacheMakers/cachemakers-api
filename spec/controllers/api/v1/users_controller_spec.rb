@@ -6,7 +6,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
     it 'should respond with user json' do
       @User = FactoryGirl.create :user
       get :show, {id:@User.id}
-      user_response = json_response
+      user_response = json_response[:user]
 
       expect(response.status).to equal(200)
       expect(user_response[:email]).to include(@User.email)
@@ -20,7 +20,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       before(:each) do
         @user_attr = FactoryGirl.attributes_for :user
         post :create, {user:@user_attr}
-        @user_response = json_response
+        @user_response = json_response[:user]
       end
 
       it 'should respond with 201' do
@@ -59,7 +59,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
         @user = FactoryGirl.create :user
         api_authorization_header @user.auth_token
         patch :update, {id:@user.id, user:{email:"updated@email.com"}}
-        @user_response = json_response
+        @user_response = json_response[:user]
       end
 
       it 'should respond with 200' do
