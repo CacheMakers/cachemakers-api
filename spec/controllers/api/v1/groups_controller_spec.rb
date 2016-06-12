@@ -3,7 +3,6 @@ require 'rails_helper'
 describe Api::V1::GroupsController, type: :controller do
 
   describe 'GET #show' do
-
     it 'should return group json if group exists' do
       @group = FactoryGirl.create :group
       get :show, id: @group.id
@@ -11,7 +10,6 @@ describe Api::V1::GroupsController, type: :controller do
       expect(response.status).to equal(200)
       expect(group_response).to have_key(:group)
     end
-
   end
 
   describe 'POST #create' do
@@ -130,6 +128,24 @@ describe Api::V1::GroupsController, type: :controller do
         expect(response.status).to equal(204)
       end
 
+    end
+  end
+
+  describe 'json content' do
+    before(:each) do
+      @user = FactoryGirl.create :user
+      api_authorization_header @user.auth_token
+      @group = FactoryGirl.create :group, user: @user
+      get :show, id: @group.id
+      @group_response = json_response
+    end
+
+    it 'should contain group leader object' do
+      expect(@group_response[:group][:user][:email]).to eql(@user.email)
+    end
+
+    it 'should not contain leader auth token' do
+      expect(@group_response[:group][:user][:auth_token]).to eql(nil)
     end
   end
 
