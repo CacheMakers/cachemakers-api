@@ -103,5 +103,17 @@ RSpec.describe Api::V1::UsersController, type: :controller do
     end
   end
 
+  describe 'response content' do
+    before(:each) do
+      @User = FactoryGirl.create :user
+      get :show, {id:@User.id}
+      @user_response = json_response[:user]
+    end
+
+    it 'should not contain auth token' do
+      expect(@user_response[:auth_token]).to eql(nil)
+    end
+  end
+
 
 end
